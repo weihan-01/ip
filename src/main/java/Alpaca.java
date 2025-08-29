@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Alpaca {
@@ -13,6 +14,8 @@ public class Alpaca {
     }
 
     public static void main(String[] args) {
+        ArrayList<String> tasks = new ArrayList<>();
+
         // Greeting
         printBox(
             "Hello! I'm Alpaca",
@@ -21,16 +24,28 @@ public class Alpaca {
 
         Scanner sc = new Scanner(System.in);
         while (true) {
-            if (!sc.hasNextLine()) break;          // handles EOF (e.g., Ctrl+Z/Ctrl+D)
+            if (!sc.hasNextLine()) break;
             String input = sc.nextLine();
 
-            if ("bye".equals(input)) {              // exit on exact "bye"
+            if ("bye".equals(input)) {
                 printBox("Bye. Hope to see you again soon!");
                 break;
+            } else if ("list".equals(input)) {
+                // Print all tasks
+                if (tasks.isEmpty()) {
+                    printBox("No tasks added yet.");
+                } else {
+                    String[] output = new String[tasks.size()];
+                    for (int i = 0; i < tasks.size(); i++) {
+                        output[i] = (i + 1) + ". " + tasks.get(i);
+                    }
+                    printBox(output);
+                }
+            } else {
+                // Add any other input as a task
+                tasks.add(input);
+                printBox("added: " + input);
             }
-
-            // Echo the command
-            printBox(input);
         }
         sc.close();
     }
