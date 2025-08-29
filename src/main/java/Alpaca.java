@@ -15,11 +15,10 @@ public class Alpaca {
 
     public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
 
-        // Greeting
         printBox("Hello! I'm Alpaca", "What can I do for you?");
 
-        Scanner sc = new Scanner(System.in);
         while (true) {
             if (!sc.hasNextLine()) break;
             String input = sc.nextLine().trim();
@@ -56,11 +55,36 @@ public class Alpaca {
                 } catch (Exception e) {
                     printBox("Invalid index for unmark command.");
                 }
+            } else if (input.startsWith("todo ")) {
+                String desc = input.substring(5).trim();
+                Task t = new Todo(desc);
+                tasks.add(t);
+                printBox("Got it. I've added this task:", "  " + t.toString(),
+                         "Now you have " + tasks.size() + " tasks in the list.");
+            } else if (input.startsWith("deadline ")) {
+                try {
+                    String[] parts = input.substring(9).split(" /by ");
+                    Task t = new Deadline(parts[0].trim(), parts[1].trim());
+                    tasks.add(t);
+                    printBox("Got it. I've added this task:", "  " + t.toString(),
+                             "Now you have " + tasks.size() + " tasks in the list.");
+                } catch (Exception e) {
+                    printBox("Invalid deadline format. Use: deadline <desc> /by <time>");
+                }
+            } else if (input.startsWith("event ")) {
+                try {
+                    String[] parts1 = input.substring(6).split(" /from ");
+                    String desc = parts1[0].trim();
+                    String[] parts2 = parts1[1].split(" /to ");
+                    Task t = new Event(desc, parts2[0].trim(), parts2[1].trim());
+                    tasks.add(t);
+                    printBox("Got it. I've added this task:", "  " + t.toString(),
+                             "Now you have " + tasks.size() + " tasks in the list.");
+                } catch (Exception e) {
+                    printBox("Invalid event format. Use: event <desc> /from <start> /to <end>");
+                }
             } else {
-                // Add new task
-                Task newTask = new Task(input);
-                tasks.add(newTask);
-                printBox("added: " + input);
+                printBox("Unknown command. Try todo, deadline, event, list, mark, unmark, bye.");
             }
         }
         sc.close();
