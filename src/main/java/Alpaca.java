@@ -1,9 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Alpaca {
 
-    static Task[] tasks = new Task[100];
-    static int taskCount = 0;
+    static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -33,15 +33,13 @@ public class Alpaca {
                 handleDeadline(input);
             } else if (input.startsWith("event ")) {
                 handleEvent(input);
+            } else if (input.startsWith("delete ")) {
+                handleDelete(input);
             } else if (input.equals("todo") || input.equals("deadline") || input.equals("event")) {
                 handleEmptyCommand(input);
             } else {
                 printLine();
-<<<<<<< HEAD
-                System.out.println("Huh? I don't speak gibberish! Try something I actually understand. commands: todo, deadline, event, list, mark, unmark, bye");
-=======
-                System.out.println("Huh? I don't speak gibberish! Try something I actually understand 😜");
->>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
+                System.out.println("Huh? I don't speak gibberish! Try something I actually understand. commands: todo, deadline, event, list, mark, unmark, delete, bye");
                 printLine();
             }
         }
@@ -57,12 +55,12 @@ public class Alpaca {
     // Task listing
     private static void listTasks() {
         printLine();
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("No tasks yet. Maybe add one? 📝");
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + "." + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
             }
         }
         printLine();
@@ -73,16 +71,12 @@ public class Alpaca {
         String desc = input.substring(5).trim();
         if (desc.isEmpty()) {
             printLine();
-<<<<<<< HEAD
             System.out.println("Whoa there! You need to actually tell me what to do. I can't read minds.");
-=======
-            System.out.println("Whoa there! You need to actually tell me what to do. I can't read minds 🦙");
->>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
             printLine();
             return;
         }
         Task t = new Todo(desc);
-        tasks[taskCount++] = t;
+        tasks.add(t);
         printAddedTask(t);
     }
 
@@ -91,16 +85,12 @@ public class Alpaca {
         String[] parts = input.substring(9).split("/by");
         if (parts.length < 2 || parts[0].trim().isEmpty()) {
             printLine();
-<<<<<<< HEAD
             System.out.println("Oops! Deadlines need a name, not magic!");
-=======
-            System.out.println("Oops! Deadlines need a name, not magic! 🪄");
->>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
             printLine();
             return;
         }
         Task t = new Deadline(parts[0].trim(), parts[1].trim());
-        tasks[taskCount++] = t;
+        tasks.add(t);
         printAddedTask(t);
     }
 
@@ -109,11 +99,7 @@ public class Alpaca {
         String[] parts = input.substring(6).split("/from");
         if (parts.length < 2 || parts[0].trim().isEmpty()) {
             printLine();
-<<<<<<< HEAD
             System.out.println("Hold up! Events need a name. I’m not a fortune teller!");
-=======
-            System.out.println("Hold up! Events need a name. I’m not a fortune teller! 🔮");
->>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
             printLine();
             return;
         }
@@ -121,16 +107,12 @@ public class Alpaca {
         String[] times = parts[1].split("/to");
         if (times.length < 2) {
             printLine();
-<<<<<<< HEAD
             System.out.println("Oops! Events need both a start and end time!");
-=======
-            System.out.println("Oops! Events need both a start and end time! ⏰");
->>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
             printLine();
             return;
         }
         Task t = new Event(name, times[0].trim(), times[1].trim());
-        tasks[taskCount++] = t;
+        tasks.add(t);
         printAddedTask(t);
     }
 
@@ -138,7 +120,7 @@ public class Alpaca {
         printLine();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + t);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         printLine();
     }
 
@@ -146,18 +128,14 @@ public class Alpaca {
     private static void handleMark(String input) {
         try {
             int index = Integer.parseInt(input.substring(5).trim()) - 1;
-            tasks[index].markAsDone();
+            tasks.get(index).markAsDone();
             printLine();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + tasks[index]);
+            System.out.println("  " + tasks.get(index));
             printLine();
         } catch (Exception e) {
             printLine();
-<<<<<<< HEAD
             System.out.println("Oops! That task number doesn't exist.");
-=======
-            System.out.println("Oops! That task number doesn't exist. 🐫");
->>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
             printLine();
         }
     }
@@ -165,18 +143,31 @@ public class Alpaca {
     private static void handleUnmark(String input) {
         try {
             int index = Integer.parseInt(input.substring(7).trim()) - 1;
-            tasks[index].markAsNotDone();
+            tasks.get(index).markAsNotDone();
             printLine();
             System.out.println("OK! I've marked this task as not done yet:");
-            System.out.println("  " + tasks[index]);
+            System.out.println("  " + tasks.get(index));
             printLine();
         } catch (Exception e) {
             printLine();
-<<<<<<< HEAD
             System.out.println("Oops! That task number doesn't exist.");
-=======
-            System.out.println("Oops! That task number doesn't exist. 🐫");
->>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
+            printLine();
+        }
+    }
+
+    // Handle delete
+    private static void handleDelete(String input) {
+        try {
+            int index = Integer.parseInt(input.substring(7).trim()) - 1;
+            Task removed = tasks.remove(index);
+            printLine();
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removed);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            printLine();
+        } catch (Exception e) {
+            printLine();
+            System.out.println("Oops! That task number doesn't exist.");
             printLine();
         }
     }
@@ -185,7 +176,6 @@ public class Alpaca {
         printLine();
         switch (input) {
             case "todo":
-<<<<<<< HEAD
                 System.out.println("Whoa there! You need to actually tell me what to do. I can't read minds. format: todo <name>");
                 break;
             case "deadline":
@@ -193,21 +183,8 @@ public class Alpaca {
                 break;
             case "event":
                 System.out.println("Hold up! Events need a name. I’m not a fortune teller! format: event <name> /from <start time> /to <end time>");
-=======
-                System.out.println("Whoa there! You need to actually tell me what to do. I can't read minds 🦙");
-                break;
-            case "deadline":
-                System.out.println("Oops! Deadlines need a name, not magic! 🪄");
-                break;
-            case "event":
-                System.out.println("Hold up! Events need a name. I’m not a fortune teller! 🔮");
->>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
                 break;
         }
         printLine();
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
