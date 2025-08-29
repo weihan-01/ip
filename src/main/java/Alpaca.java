@@ -37,7 +37,11 @@ public class Alpaca {
                 handleEmptyCommand(input);
             } else {
                 printLine();
+<<<<<<< HEAD
                 System.out.println("Huh? I don't speak gibberish! Try something I actually understand. commands: todo, deadline, event, list, mark, unmark, bye");
+=======
+                System.out.println("Huh? I don't speak gibberish! Try something I actually understand 😜");
+>>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
                 printLine();
             }
         }
@@ -69,7 +73,11 @@ public class Alpaca {
         String desc = input.substring(5).trim();
         if (desc.isEmpty()) {
             printLine();
+<<<<<<< HEAD
             System.out.println("Whoa there! You need to actually tell me what to do. I can't read minds.");
+=======
+            System.out.println("Whoa there! You need to actually tell me what to do. I can't read minds 🦙");
+>>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
             printLine();
             return;
         }
@@ -83,7 +91,11 @@ public class Alpaca {
         String[] parts = input.substring(9).split("/by");
         if (parts.length < 2 || parts[0].trim().isEmpty()) {
             printLine();
+<<<<<<< HEAD
             System.out.println("Oops! Deadlines need a name, not magic!");
+=======
+            System.out.println("Oops! Deadlines need a name, not magic! 🪄");
+>>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
             printLine();
             return;
         }
@@ -97,7 +109,11 @@ public class Alpaca {
         String[] parts = input.substring(6).split("/from");
         if (parts.length < 2 || parts[0].trim().isEmpty()) {
             printLine();
+<<<<<<< HEAD
             System.out.println("Hold up! Events need a name. I’m not a fortune teller!");
+=======
+            System.out.println("Hold up! Events need a name. I’m not a fortune teller! 🔮");
+>>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
             printLine();
             return;
         }
@@ -105,7 +121,11 @@ public class Alpaca {
         String[] times = parts[1].split("/to");
         if (times.length < 2) {
             printLine();
+<<<<<<< HEAD
             System.out.println("Oops! Events need both a start and end time!");
+=======
+            System.out.println("Oops! Events need both a start and end time! ⏰");
+>>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
             printLine();
             return;
         }
@@ -133,7 +153,11 @@ public class Alpaca {
             printLine();
         } catch (Exception e) {
             printLine();
+<<<<<<< HEAD
             System.out.println("Oops! That task number doesn't exist.");
+=======
+            System.out.println("Oops! That task number doesn't exist. 🐫");
+>>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
             printLine();
         }
     }
@@ -148,7 +172,11 @@ public class Alpaca {
             printLine();
         } catch (Exception e) {
             printLine();
+<<<<<<< HEAD
             System.out.println("Oops! That task number doesn't exist.");
+=======
+            System.out.println("Oops! That task number doesn't exist. 🐫");
+>>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
             printLine();
         }
     }
@@ -157,6 +185,7 @@ public class Alpaca {
         printLine();
         switch (input) {
             case "todo":
+<<<<<<< HEAD
                 System.out.println("Whoa there! You need to actually tell me what to do. I can't read minds. format: todo <name>");
                 break;
             case "deadline":
@@ -164,8 +193,21 @@ public class Alpaca {
                 break;
             case "event":
                 System.out.println("Hold up! Events need a name. I’m not a fortune teller! format: event <name> /from <start time> /to <end time>");
+=======
+                System.out.println("Whoa there! You need to actually tell me what to do. I can't read minds 🦙");
+                break;
+            case "deadline":
+                System.out.println("Oops! Deadlines need a name, not magic! 🪄");
+                break;
+            case "event":
+                System.out.println("Hold up! Events need a name. I’m not a fortune teller! 🔮");
+>>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
                 break;
         }
         printLine();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0ddf976d6d9e4630297b4c7bfab990eacca2afa7
