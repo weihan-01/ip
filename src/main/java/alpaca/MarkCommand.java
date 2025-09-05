@@ -1,3 +1,5 @@
+package alpaca;
+
 public class MarkCommand extends Command {
     private final String arg;
     private final boolean isMark;
