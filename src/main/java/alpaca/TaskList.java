@@ -1,6 +1,10 @@
 package alpaca;
+
 import java.util.ArrayList;
 
+/**
+ * Represents the list of tasks and provides operations to modify it.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
@@ -35,3 +39,4 @@ public class TaskList {
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
+}
