@@ -4,21 +4,25 @@ import java.util.ArrayList;
 
 public class Storage {
     private static final String DIR = "data";
-    private static final String FILE = "data/duke.txt";
+    private final String filePath;
 
-    public static ArrayList<Task> load() {
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            Path dirPath = Paths.get(DIR);
+            Path dirPath = Paths.get(Storage.DIR);
             if (!Files.exists(dirPath)) {
                 Files.createDirectories(dirPath);
             }
-            Path filePath = Paths.get(FILE);
+            Path filePath = Paths.get(this.filePath);
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
                 return tasks;
             }
-            BufferedReader br = new BufferedReader(new FileReader(FILE));
+            BufferedReader br = new BufferedReader(new FileReader(this.filePath));
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(" \\| ");
@@ -48,13 +52,13 @@ public class Storage {
         return tasks;
     }
 
-    public static void save(ArrayList<Task> tasks) {
+    public void save(ArrayList<Task> tasks) {
         try {
-            Path dirPath = Paths.get(DIR);
+            Path dirPath = Paths.get(Storage.DIR);
             if (!Files.exists(dirPath)) {
                 Files.createDirectories(dirPath);
             }
-            BufferedWriter bw = new BufferedWriter(new FileWriter(FILE));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(this.filePath));
             for (Task t : tasks) {
                 bw.write(t.toSaveFormat());
                 bw.newLine();
