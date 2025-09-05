@@ -90,10 +90,16 @@ public class Alpaca {
             printLine();
             return;
         }
-        Task t = new Deadline(parts[0].trim(), parts[1].trim());
-        tasks.add(t);
-        Storage.save(tasks); // Save after change
-        printAddedTask(t);
+        try {
+            Task t = new Deadline(parts[0].trim(), parts[1].trim()); // expects yyyy-MM-dd
+            tasks.add(t);
+            Storage.save(tasks); // Save after change
+            printAddedTask(t);
+        } catch (Exception e) {
+            printLine();
+            System.out.println("Please use the date format yyyy-MM-dd, e.g., 2019-12-02");
+            printLine();
+        }
     }
 
     // Handle Event
@@ -113,10 +119,17 @@ public class Alpaca {
             printLine();
             return;
         }
-        Task t = new Event(name, times[0].trim(), times[1].trim());
-        tasks.add(t);
-        Storage.save(tasks); // Save after change
-        printAddedTask(t);
+        try {
+            // expects format: yyyy-MM-dd HHmm
+            Task t = new Event(name, times[0].trim(), times[1].trim());
+            tasks.add(t);
+            Storage.save(tasks); // Save after change
+            printAddedTask(t);
+        } catch (Exception e) {
+            printLine();
+            System.out.println("Please use the date/time format yyyy-MM-dd HHmm, e.g., 2019-08-06 1400");
+            printLine();
+        }
     }
 
     private static void printAddedTask(Task t) {
