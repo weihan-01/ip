@@ -1,3 +1,5 @@
+package alpaca;
+
 public class Alpaca {
 
     private Storage storage;

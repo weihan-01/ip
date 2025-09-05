@@ -1,3 +1,5 @@
+package alpaca;
+
 public class Parser {
     public static Command parse(String input) {
         String[] words = input.split(" ", 2);
