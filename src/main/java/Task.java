@@ -12,6 +12,11 @@ class Task {
 
     public String getStatusIcon() { return isDone ? "X" : " "; }
 
+    public String toSaveFormat() {
+        // Default implementation, can be overridden by subclasses
+        return "";
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Alpaca {
 
-    static ArrayList<Task> tasks = new ArrayList<>();
+    static ArrayList<Task> tasks = Storage.load(); // Load at startup
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -77,6 +77,7 @@ public class Alpaca {
         }
         Task t = new Todo(desc);
         tasks.add(t);
+        Storage.save(tasks); // Save after change
         printAddedTask(t);
     }
 
@@ -91,6 +92,7 @@ public class Alpaca {
         }
         Task t = new Deadline(parts[0].trim(), parts[1].trim());
         tasks.add(t);
+        Storage.save(tasks); // Save after change
         printAddedTask(t);
     }
 
@@ -113,6 +115,7 @@ public class Alpaca {
         }
         Task t = new Event(name, times[0].trim(), times[1].trim());
         tasks.add(t);
+        Storage.save(tasks); // Save after change
         printAddedTask(t);
     }
 
@@ -129,6 +132,7 @@ public class Alpaca {
         try {
             int index = Integer.parseInt(input.substring(5).trim()) - 1;
             tasks.get(index).markAsDone();
+            Storage.save(tasks); // Save after change
             printLine();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("  " + tasks.get(index));
@@ -144,6 +148,7 @@ public class Alpaca {
         try {
             int index = Integer.parseInt(input.substring(7).trim()) - 1;
             tasks.get(index).markAsNotDone();
+            Storage.save(tasks); // Save after change
             printLine();
             System.out.println("OK! I've marked this task as not done yet:");
             System.out.println("  " + tasks.get(index));
@@ -160,6 +165,7 @@ public class Alpaca {
         try {
             int index = Integer.parseInt(input.substring(7).trim()) - 1;
             Task removed = tasks.remove(index);
+            Storage.save(tasks); // Save after change
             printLine();
             System.out.println("Noted. I've removed this task:");
             System.out.println("  " + removed);
