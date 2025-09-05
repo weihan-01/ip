@@ -23,6 +23,8 @@ public class Parser {
                 return new AddCommand("deadline", args);
             case "event":
                 return new AddCommand("event", args);
+            case "find":
+                return new FindCommand(args);
             default:
                 return new UnknownCommand();
         }

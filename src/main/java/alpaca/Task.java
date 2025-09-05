@@ -1,5 +1,6 @@
 package alpaca;
-class Task {
+
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -21,5 +22,13 @@ class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+
+    /**
+     * Returns the description of the task.
+     * @return Task description.
+     */
+    public String getDescription() {
+        return description;
     }
 }
