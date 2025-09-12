@@ -22,7 +22,7 @@ public class FindCommand extends Command {
             }
         }
         if (count == 1) {
-            System.out.println("No matching tasks found.");
+            System.out.println("No matching tasks found");
         }
         ui.showLine();
     }
