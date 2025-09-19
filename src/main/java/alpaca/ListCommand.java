@@ -5,7 +5,7 @@ public class ListCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showLine();
         if (tasks.isEmpty()) {
-            System.out.println("No tasks yet. Maybe add one? 📝");
+            System.out.println("No tasks yet. Maybe add one?");
         } else {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
