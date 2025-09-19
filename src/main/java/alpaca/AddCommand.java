@@ -1,5 +1,6 @@
 package alpaca;
 
+
 public class AddCommand extends Command {
     private final String type;
     private final String args;
