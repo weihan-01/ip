@@ -1,9 +1,20 @@
 package alpaca;
 
+import java.util.Scanner;
+
 /**
  * Handles all user interaction, including input and output.
  */
 public class Ui {
+    private Scanner sc;
+
+    /**
+     * Constructor to initialize the Scanner.
+     */
+    public Ui() {
+        sc = new Scanner(System.in);
+    }
+
     /**
      * Prints the welcome message to the user.
      */
@@ -53,5 +64,14 @@ public class Ui {
         showLine();
         System.out.println(msg);
         showLine();
+    }
+
+    /**
+     * Closes the Scanner to prevent resource leaks.
+     */
+    public void close() {
+        if (sc != null) {
+            sc.close();
+        }
     }
 }
