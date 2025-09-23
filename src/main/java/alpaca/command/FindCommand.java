@@ -1,4 +1,9 @@
-package alpaca;
+package alpaca.command;
+
+import alpaca.Storage;
+import alpaca.task.Task;
+import alpaca.TaskList;
+import alpaca.Ui;
 
 /**
  * Finds and lists all tasks containing the given keyword.

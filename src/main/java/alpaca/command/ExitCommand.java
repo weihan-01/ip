@@ -1,4 +1,8 @@
-package alpaca;
+package alpaca.command;
+
+import alpaca.Storage;
+import alpaca.TaskList;
+import alpaca.Ui;
 
 public class ExitCommand extends Command {
     @Override

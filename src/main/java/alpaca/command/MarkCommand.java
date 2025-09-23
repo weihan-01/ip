@@ -1,4 +1,9 @@
-package alpaca;
+package alpaca.command;
+
+import alpaca.Storage;
+import alpaca.task.Task;
+import alpaca.TaskList;
+import alpaca.Ui;
 
 public class MarkCommand extends Command {
     private final String arg;

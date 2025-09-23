@@ -1,14 +1,16 @@
 package alpaca;
 
+import alpaca.command.Command;
+
 /**
  * The main entry point for the Alpaca chatbot application.
  * Handles initialization and the main command loop.
  */
 public class Alpaca {
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     public Alpaca(String filePath) {
         ui = new Ui();

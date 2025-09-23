@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Handles all user interaction, including input and output.
  */
 public class Ui {
-    private Scanner sc;
+    private final Scanner sc;
 
     /**
      * Constructor to initialize the Scanner.

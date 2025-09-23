@@ -1,5 +1,7 @@
 package alpaca;
 
+import alpaca.command.Command;
+
 public class UnknownCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

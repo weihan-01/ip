@@ -1,4 +1,4 @@
-package alpaca;
+package alpaca.task;
 
 public abstract class Task {
     protected String description;

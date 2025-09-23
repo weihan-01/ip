@@ -1,4 +1,10 @@
-package alpaca;
+package alpaca.command;
+
+import alpaca.*;
+import alpaca.task.Deadline;
+import alpaca.task.Event;
+import alpaca.task.Task;
+import alpaca.task.Todo;
 
 public class AddCommand extends Command {
     private final String type;

@@ -1,5 +1,7 @@
 package alpaca;
 
+import alpaca.task.Task;
+
 import java.util.ArrayList;
 
 /**

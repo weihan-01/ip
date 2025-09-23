@@ -1,4 +1,9 @@
 package alpaca;
+import alpaca.task.Deadline;
+import alpaca.task.Event;
+import alpaca.task.Task;
+import alpaca.task.Todo;
+
 import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;

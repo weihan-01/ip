@@ -1,4 +1,8 @@
-package alpaca;
+package alpaca.command;
+
+import alpaca.Storage;
+import alpaca.TaskList;
+import alpaca.Ui;
 
 /**
  * Abstract base class for all user commands.
