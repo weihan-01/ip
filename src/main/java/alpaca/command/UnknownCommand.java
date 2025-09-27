@@ -1,6 +1,8 @@
-package alpaca;
+package alpaca.command;
 
-import alpaca.command.Command;
+import alpaca.Storage;
+import alpaca.TaskList;
+import alpaca.Ui;
 
 public class UnknownCommand extends Command {
     @Override

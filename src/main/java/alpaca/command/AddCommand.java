@@ -25,16 +25,16 @@ public class AddCommand extends Command {
                     t = new Todo(args.trim());
                     break;
                 case "deadline": {
-                    String[] parts = args.split("/by");
+                    String[] parts = args.split("\\s*/by\\s*", 2);
                     if (parts.length < 2 || parts[0].trim().isEmpty()) throw new Exception();
                     t = new Deadline(parts[0].trim(), parts[1].trim());
                     break;
                 }
                 case "event": {
-                    String[] parts = args.split("/from");
+                    String[] parts = args.split("\\s*/from\\s*", 2);
                     if (parts.length < 2 || parts[0].trim().isEmpty()) throw new Exception();
                     String name = parts[0].trim();
-                    String[] times = parts[1].split("/to");
+                    String[] times = parts[1].split("\\s*/to\\s*", 2);
                     if (times.length < 2) throw new Exception();
                     t = new Event(name, times[0].trim(), times[1].trim());
                     break;
