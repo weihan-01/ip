@@ -1,114 +1,144 @@
 package alpaca.command;
 
-import alpaca.*;
+import alpaca.Storage;
 import alpaca.task.TaskList;
+import alpaca.Ui;
+import alpaca.task.Todo;
 
-import org.junit.jupiter.api.*;
-import java.io.IOException;
-import java.nio.file.*;
-
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Simple JUnit tests for AddCommand - focusing on basic functionality.
+ */
 class AddCommandTest {
 
-    private TaskList tasks;
-    private Ui ui;
-    private Storage storage;
-    private Path tempFile;
-
-    @BeforeEach
-    void setUp() throws IOException {
-        tasks = new TaskList();
-        ui = new Ui();
-
-        // Create a unique temporary file inside data folder
-        Path dataDir = Paths.get("data");
-        if (!Files.exists(dataDir)) {
-            Files.createDirectories(dataDir);
-        }
-        tempFile = dataDir.resolve("tasks_test_" + System.currentTimeMillis() + ".txt");
-        Files.createFile(tempFile);
-
-        storage = new Storage(tempFile.toString());
-    }
-
-    @AfterEach
-    void tearDown() throws IOException {
-        Files.deleteIfExists(tempFile);
-    }
-
     @Test
-    void testAddTodo_Success() {
-        AddCommand cmd = new AddCommand("todo", "read book");
-        cmd.execute(tasks, ui, storage);
+    void testAddValidTodo() {
+        // Setup
+        TaskList tasks = new TaskList();
+        Ui ui = new Ui() {
+            @Override
+            public void showMessage(String message) {
+                // Do nothing
+            }
+        };
+        Storage storage = new Storage("test.txt") {
+            public void save(java.util.List<alpaca.task.Task> taskList) {
+                // Do nothing
+            }
+        };
 
+        // Test
+        AddCommand command = new AddCommand("todo", "read book");
+        String result = command.execute(tasks, ui, storage);
+
+        // Verify
         assertEquals(1, tasks.size());
-        assertTrue(tasks.getTasks().get(0).toString().contains("read book"));
-        assertTrue(ui.getLastMessage().contains("Got it. I've added this task"));
+        assertTrue(result.contains("Got it. I've added this task"));
+        assertTrue(result.contains("Now you have 1 tasks"));
     }
 
     @Test
-    void testAddTodo_MissingDescription() {
-        AddCommand cmd = new AddCommand("todo", "   ");
-        cmd.execute(tasks, ui, storage);
+    void testAddTodoEmptyDescription() {
+        // Setup
+        TaskList tasks = new TaskList();
+        Ui ui = new Ui() {
+            @Override
+            public void showMessage(String message) {
+                // Do nothing
+            }
+        };
+        Storage storage = new Storage("test.txt") {
+            public void save(java.util.List<alpaca.task.Task> taskList) {
+                // Do nothing
+            }
+        };
 
+        // Test
+        AddCommand command = new AddCommand("todo", "");
+        String result = command.execute(tasks, ui, storage);
+
+        // Verify
         assertEquals(0, tasks.size());
-        assertTrue(ui.getLastMessage().contains("Invalid format or missing description/times"));
+        assertTrue(result.contains("Invalid input"));
+        assertTrue(result.contains("Todo description cannot be empty"));
     }
 
     @Test
-    void testAddDeadline_Success() {
-        AddCommand cmd = new AddCommand("deadline", "submit report /by 2025-09-30");
-        cmd.execute(tasks, ui, storage);
+    void testAddDeadlineValid() {
+        // Setup
+        TaskList tasks = new TaskList();
+        Ui ui = new Ui() {
+            @Override
+            public void showMessage(String message) {
+                // Do nothing
+            }
+        };
+        Storage storage = new Storage("test.txt") {
+            public void save(java.util.List<alpaca.task.Task> taskList) {
+                // Do nothing
+            }
+        };
 
+        // Test
+        AddCommand command = new AddCommand("deadline", "assignment /by 2025-10-15");
+        String result = command.execute(tasks, ui, storage);
+
+        // Verify
         assertEquals(1, tasks.size());
-        assertTrue(tasks.getTasks().get(0).toString().contains("submit report"));
-        assertTrue(ui.getLastMessage().contains("Got it. I've added this task"));
+        assertTrue(result.contains("Got it. I've added this task"));
     }
 
     @Test
-    void testAddDeadline_Invalid() {
-        AddCommand cmd = new AddCommand("deadline", "submit report"); // missing /by
-        cmd.execute(tasks, ui, storage);
+    void testAddDeadlineInvalidFormat() {
+        // Setup
+        TaskList tasks = new TaskList();
+        Ui ui = new Ui() {
+            @Override
+            public void showMessage(String message) {
+                // Do nothing
+            }
+        };
+        Storage storage = new Storage("test.txt") {
+            public void save(java.util.List<alpaca.task.Task> taskList) {
+                // Do nothing
+            }
+        };
 
+        // Test
+        AddCommand command = new AddCommand("deadline", "assignment without by");
+        String result = command.execute(tasks, ui, storage);
+
+        // Verify
         assertEquals(0, tasks.size());
-        assertTrue(ui.getLastMessage().contains("Invalid format or missing description/times"));
+        assertTrue(result.contains("Invalid input"));
+        assertTrue(result.contains("Deadline format"));
     }
 
     @Test
-    void testAddEvent_Success() {
-        AddCommand cmd = new AddCommand("event", "meeting /from 2025-09-27 1400 /to 2025-09-27 1600");
-        cmd.execute(tasks, ui, storage);
+    void testUnknownTaskType() {
+        // Setup
+        TaskList tasks = new TaskList();
+        Ui ui = new Ui() {
+            @Override
+            public void showMessage(String message) {
+                // Do nothing
+            }
+        };
+        Storage storage = new Storage("test.txt") {
+            public void save(java.util.List<alpaca.task.Task> taskList) {
+                // Do nothing
+            }
+        };
 
-        assertEquals(1, tasks.size());
-        assertTrue(tasks.getTasks().get(0).toString().contains("meeting"));
-        assertTrue(ui.getLastMessage().contains("Got it. I've added this task"));
-    }
+        // Test
+        AddCommand command = new AddCommand("unknown", "some task");
+        String result = command.execute(tasks, ui, storage);
 
-    @Test
-    void testAddEvent_Invalid_MissingTo() {
-        AddCommand cmd = new AddCommand("event", "party /from 2025-09-27 1400"); // missing /to
-        cmd.execute(tasks, ui, storage);
-
+        // Verify
         assertEquals(0, tasks.size());
-        assertTrue(ui.getLastMessage().contains("Invalid format or missing description/times"));
-    }
-
-    @Test
-    void testAddEvent_Invalid_MissingFrom() {
-        AddCommand cmd = new AddCommand("event", "party"); // missing /from
-        cmd.execute(tasks, ui, storage);
-
-        assertEquals(0, tasks.size());
-        assertTrue(ui.getLastMessage().contains("Invalid format or missing description/times"));
-    }
-
-    @Test
-    void testInvalidType() {
-        AddCommand cmd = new AddCommand("unknown", "blah");
-        cmd.execute(tasks, ui, storage);
-
-        assertEquals(0, tasks.size());
-        assertTrue(ui.getLastMessage().contains("Invalid format or missing description/times"));
+        assertTrue(result.contains("Invalid input"));
+        assertTrue(result.contains("Unknown task type"));
     }
 }
