@@ -6,16 +6,28 @@ import alpaca.Ui;
 
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder response = new StringBuilder();
+
         ui.showLine();
+
         if (tasks.isEmpty()) {
-            System.out.println("No tasks yet. Maybe add one?");
+            String msg = "No tasks yet. Maybe add one?";
+            response.append(msg).append("\n");
+            System.out.println(msg);
         } else {
-            System.out.println("Here are the tasks in your list:");
+            String header = "Here are the tasks in your list:";
+            response.append(header).append("\n");
+            System.out.println(header);
+
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                String line = (i + 1) + "." + tasks.get(i);
+                response.append(line).append("\n");
+                System.out.println(line);
             }
         }
+
         ui.showLine();
+        return response.toString().trim();
     }
 }

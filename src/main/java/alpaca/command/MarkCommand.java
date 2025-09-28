@@ -15,20 +15,33 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder response = new StringBuilder();
+
         try {
             int index = Integer.parseInt(arg.trim()) - 1;
             Task t = tasks.get(index);
+
             if (isMark) {
                 t.markAsDone();
-                ui.showMessage("Nice! I've marked this task as done:\n  " + t);
+                String msg = "Nice! I've marked this task as done:\n  " + t;
+                response.append(msg);
+                ui.showMessage(msg);
             } else {
                 t.markAsNotDone();
-                ui.showMessage("OK! I've marked this task as not done yet:\n  " + t);
+                String msg = "OK! I've marked this task as not done yet:\n  " + t;
+                response.append(msg);
+                ui.showMessage(msg);
             }
+
             storage.save(tasks.getTasks());
+
         } catch (Exception e) {
-            ui.showMessage("Oops! That task number doesn't exist.");
+            String error = "Oops! That task number doesn't exist.";
+            response.append(error);
+            ui.showMessage(error);
         }
+
+        return response.toString();
     }
 }

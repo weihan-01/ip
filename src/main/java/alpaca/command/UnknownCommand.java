@@ -6,7 +6,9 @@ import alpaca.Ui;
 
 public class UnknownCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage("Huh? I don't speak gibberish! Try something I actually understand.");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String msg = "Huh? I don't speak gibberish! Try something I actually understand.";
+        ui.showMessage(msg);
+        return msg;
     }
 }

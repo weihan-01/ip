@@ -16,7 +16,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task t;
             switch (type) {
@@ -44,10 +44,14 @@ public class AddCommand extends Command {
             }
             tasks.add(t);
             storage.save(tasks.getTasks());
-            ui.showMessage("Got it. I've added this task:\n  " + t +
-                "\nNow you have " + tasks.size() + " tasks in the list.");
+            String msg = "Got it. I've added this task:\n  " + t +
+                    "\nNow you have " + tasks.size() + " tasks in the list.";
+            ui.showMessage(msg);
+            return msg;
         } catch (Exception e) {
-            ui.showMessage("Invalid format or missing description/times.");
+            String msg = "Invalid format or missing description/times.";
+            ui.showMessage(msg);
+            return msg;
         }
     }
 }

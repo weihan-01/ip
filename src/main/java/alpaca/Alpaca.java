@@ -23,6 +23,10 @@ public class Alpaca {
         }
     }
 
+    public Alpaca() {
+        this("data/tasks.txt"); // calls the other constructor
+    }
+
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -32,6 +36,11 @@ public class Alpaca {
             command.execute(tasks, ui, storage);
             isExit = command.isExit();
         }
+    }
+
+    public String getResponse(String input) {
+        Command command = Parser.parse(input);
+        return command.execute(tasks, ui, storage);
     }
 
     public static void main(String[] args) {
