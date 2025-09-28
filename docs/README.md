@@ -1,6 +1,6 @@
 # Alpaca User Guide 🦙
 
-![Alpaca Screenshot](ui.png)
+![Alpaca Screenshot](Ui.png)
 <!-- Add your actual screenshot here -->
 
 **Alpaca** is your personal task management assistant that helps you organize and track your todos, deadlines, events, and tasks within specific periods. With a simple and intuitive interface, Alpaca makes it easy to stay on top of your responsibilities.
