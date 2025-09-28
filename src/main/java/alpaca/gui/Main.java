@@ -38,6 +38,7 @@ public class Main extends Application {
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.setTitle("Alpaca Task Manager"); // Add this line here!
 
             // Inject the Alpaca instance into the controller
             MainWindow controller = fxmlLoader.getController();
